@@ -5,26 +5,56 @@ import { Button } from "@/components/ui/button";
 export default function Contact() {
   const { language } = useLanguage();
 
-  const sponsorshipTier = ({ title, price, features, color, icon: Icon }: { title: string; price: string; features: string[]; color: string; icon: any }) => (
-    <div className={`bg-white p-8 rounded-xl shadow-lg text-center border-t-4 border-${color}`}>
-      <div className={`w-16 h-16 bg-${color}/10 rounded-full mx-auto mb-4 flex items-center justify-center`}>
-        <Icon className={`text-${color} text-2xl h-8 w-8`} />
+  const getColorClasses = (color: string) => {
+    const colorMap = {
+      'yellow-600': {
+        border: 'border-yellow-600',
+        bg: 'bg-yellow-600/10',
+        text: 'text-yellow-600',
+        bgSolid: 'bg-yellow-600',
+        hover: 'hover:bg-yellow-600/90'
+      },
+      'gray-600': {
+        border: 'border-gray-600',
+        bg: 'bg-gray-600/10',
+        text: 'text-gray-600',
+        bgSolid: 'bg-gray-600',
+        hover: 'hover:bg-gray-600/90'
+      },
+      'yellow-700': {
+        border: 'border-yellow-700',
+        bg: 'bg-yellow-700/10',
+        text: 'text-yellow-700',
+        bgSolid: 'bg-yellow-700',
+        hover: 'hover:bg-yellow-700/90'
+      }
+    };
+    return colorMap[color as keyof typeof colorMap] || colorMap['yellow-600'];
+  };
+
+  const sponsorshipTier = ({ title, price, features, color, icon: Icon }: { title: string; price: string; features: string[]; color: string; icon: any }) => {
+    const colors = getColorClasses(color);
+    return (
+      <div className={`bg-white p-8 rounded-xl shadow-lg text-center border-t-4 ${colors.border}`}>
+        <div className={`w-16 h-16 ${colors.bg} rounded-full mx-auto mb-4 flex items-center justify-center`}>
+          <Icon className={`${colors.text} text-2xl h-8 w-8`} />
+        </div>
+        <h3 className="text-2xl font-bold text-cultural-maroon mb-3">{title}</h3>
+        <p className={`text-3xl font-bold ${colors.text} mb-4`}>{price}</p>
+        <ul className="text-left space-y-2 text-muted-foreground mb-6">
+          {features.map((feature, index) => (
+            <li key={index}>✓ {feature}</li>
+          ))}
+        </ul>
+        <Button 
+          className={`${colors.bgSolid} text-white ${colors.hover} w-full`}
+          data-testid={`button-sponsor-${title.toLowerCase().replace(' ', '-')}`}
+        >
+          Choose Plan
+        </Button>
       </div>
-      <h3 className="text-2xl font-bold text-cultural-maroon mb-3">{title}</h3>
-      <p className={`text-3xl font-bold text-${color} mb-4`}>{price}</p>
-      <ul className="text-left space-y-2 text-muted-foreground mb-6">
-        {features.map((feature, index) => (
-          <li key={index}>✓ {feature}</li>
-        ))}
-      </ul>
-      <Button 
-        className={`bg-${color} text-white hover:bg-${color}/90 w-full`}
-        data-testid={`button-sponsor-${title.toLowerCase()}`}
-      >
-        Choose Plan
-      </Button>
-    </div>
-  );
+    );
+  };
 
   return (
     <div>
@@ -98,9 +128,12 @@ export default function Contact() {
                     <Button 
                       className="bg-green-600 text-white hover:bg-green-700"
                       data-testid="button-whatsapp-group"
+                      asChild
                     >
-                      <MessageCircle className="w-4 h-4 mr-2" />
-                      Join Group
+                      <a href="https://chat.whatsapp.com/" target="_blank" rel="noopener noreferrer">
+                        <MessageCircle className="w-4 h-4 mr-2" />
+                        Join Group
+                      </a>
                     </Button>
                   </div>
                 </div>
@@ -121,25 +154,34 @@ export default function Contact() {
                         variant="outline"
                         className="w-full justify-between p-3 hover:bg-cultural-saffron/10"
                         data-testid="link-kurta-registration"
+                        asChild
                       >
-                        <span className="font-medium">Kurta/ID Registration</span>
-                        <ExternalLink className="text-cultural-saffron h-4 w-4" />
+                        <a href="https://forms.google.com/kurta-registration" target="_blank" rel="noopener noreferrer">
+                          <span className="font-medium">Kurta/ID Registration</span>
+                          <ExternalLink className="text-cultural-saffron h-4 w-4" />
+                        </a>
                       </Button>
                       <Button
                         variant="outline"
                         className="w-full justify-between p-3 hover:bg-cultural-green/10"
                         data-testid="link-volunteer-registration"
+                        asChild
                       >
-                        <span className="font-medium">Volunteer Registration</span>
-                        <ExternalLink className="text-cultural-green h-4 w-4" />
+                        <a href="https://forms.google.com/volunteer-registration" target="_blank" rel="noopener noreferrer">
+                          <span className="font-medium">Volunteer Registration</span>
+                          <ExternalLink className="text-cultural-green h-4 w-4" />
+                        </a>
                       </Button>
                       <Button
                         variant="outline"
                         className="w-full justify-between p-3 hover:bg-cultural-maroon/10"
                         data-testid="link-donation-form"
+                        asChild
                       >
-                        <span className="font-medium">Donation Form</span>
-                        <ExternalLink className="text-cultural-maroon h-4 w-4" />
+                        <a href="https://forms.google.com/donation-form" target="_blank" rel="noopener noreferrer">
+                          <span className="font-medium">Donation Form</span>
+                          <ExternalLink className="text-cultural-maroon h-4 w-4" />
+                        </a>
                       </Button>
                     </div>
                   </div>
@@ -152,22 +194,31 @@ export default function Contact() {
                         size="icon"
                         className="bg-blue-600 hover:bg-blue-700"
                         data-testid="link-social-facebook"
+                        asChild
                       >
-                        <Facebook className="h-5 w-5" />
+                        <a href="https://facebook.com/adarshmitramandal" target="_blank" rel="noopener noreferrer">
+                          <Facebook className="h-5 w-5" />
+                        </a>
                       </Button>
                       <Button
                         size="icon"
                         className="bg-pink-600 hover:bg-pink-700"
                         data-testid="link-social-instagram"
+                        asChild
                       >
-                        <Instagram className="h-5 w-5" />
+                        <a href="https://instagram.com/adarshmitramandal" target="_blank" rel="noopener noreferrer">
+                          <Instagram className="h-5 w-5" />
+                        </a>
                       </Button>
                       <Button
                         size="icon"
                         className="bg-green-600 hover:bg-green-700"
                         data-testid="link-social-whatsapp"
+                        asChild
                       >
-                        <MessageCircle className="h-5 w-5" />
+                        <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+                          <MessageCircle className="h-5 w-5" />
+                        </a>
                       </Button>
                     </div>
                   </div>
@@ -234,9 +285,12 @@ export default function Contact() {
               <Button 
                 className="bg-cultural-saffron text-white hover:bg-cultural-saffron/90 px-8 py-4 text-lg font-semibold"
                 data-testid="button-download-brochure"
+                asChild
               >
-                <Download className="w-5 h-5 mr-2" />
-                Download Sponsorship Brochure
+                <a href="/assets/sponsorship-brochure.pdf" download="Adarsh-Mitra-Mandal-Sponsorship-Brochure.pdf">
+                  <Download className="w-5 h-5 mr-2" />
+                  Download Sponsorship Brochure
+                </a>
               </Button>
             </div>
           </div>
