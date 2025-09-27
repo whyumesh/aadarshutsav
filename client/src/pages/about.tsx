@@ -4,29 +4,71 @@ import { History, Eye, Target, User, Users, Trophy, Music, Utensils, Palette } f
 export default function About() {
   const { language } = useLanguage();
 
-  const committeeMember = ({ name, position, color, icon: Icon }: { name: string; position: string; color: string; icon: any }) => (
-    <div className={`bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-${color}`}>
-      <div className={`w-24 h-24 bg-${color}/10 rounded-full mx-auto mb-4 flex items-center justify-center`}>
-        <Icon className={`text-${color} text-3xl h-8 w-8`} />
-      </div>
-      <h3 className="text-xl font-bold text-cultural-maroon mb-2">{position}</h3>
-      <p className={`text-${color} font-semibold`}>{name}</p>
-      <p className="text-sm text-muted-foreground mt-2">Leading with dedication</p>
-    </div>
-  );
+  const getColorClasses = (color: string) => {
+    const colorMap = {
+      'cultural-saffron': {
+        border: 'border-cultural-saffron',
+        bg: 'bg-cultural-saffron/10',
+        text: 'text-cultural-saffron'
+      },
+      'cultural-green': {
+        border: 'border-cultural-green',
+        bg: 'bg-cultural-green/10',
+        text: 'text-cultural-green'
+      },
+      'cultural-maroon': {
+        border: 'border-cultural-maroon',
+        bg: 'bg-cultural-maroon/10',
+        text: 'text-cultural-maroon'
+      },
+      'yellow-600': {
+        border: 'border-yellow-600',
+        bg: 'bg-yellow-600/10',
+        text: 'text-yellow-600'
+      },
+      'purple-600': {
+        border: 'border-purple-600',
+        bg: 'bg-purple-600/10',
+        text: 'text-purple-600'
+      },
+      'blue-600': {
+        border: 'border-blue-600',
+        bg: 'bg-blue-600/10',
+        text: 'text-blue-600'
+      }
+    };
+    return colorMap[color as keyof typeof colorMap] || colorMap['cultural-saffron'];
+  };
 
-  const activityCard = ({ title, titleMr, description, icon: Icon, color }: { title: string; titleMr: string; description: string; icon: any; color: string }) => (
-    <div className="festival-card p-6 rounded-xl">
-      <div className="text-center">
-        <div className={`w-16 h-16 bg-${color}/10 rounded-full mx-auto mb-4 flex items-center justify-center`}>
-          <Icon className={`text-${color} text-2xl h-6 w-6`} />
+  const committeeMember = ({ name, position, color, icon: Icon }: { name: string; position: string; color: string; icon: any }) => {
+    const colors = getColorClasses(color);
+    return (
+      <div className={`bg-white p-6 rounded-xl shadow-lg text-center border-t-4 ${colors.border}`}>
+        <div className={`w-24 h-24 ${colors.bg} rounded-full mx-auto mb-4 flex items-center justify-center`}>
+          <Icon className={`${colors.text} text-3xl h-8 w-8`} />
         </div>
-        <h3 className="text-xl font-bold text-cultural-maroon mb-2">{title}</h3>
-        <p className={`font-devanagari text-${color} font-semibold mb-3`}>{titleMr}</p>
-        <p className="text-muted-foreground">{description}</p>
+        <h3 className="text-xl font-bold text-cultural-maroon mb-2">{position}</h3>
+        <p className={`${colors.text} font-semibold`}>{name}</p>
+        <p className="text-sm text-muted-foreground mt-2">Leading with dedication</p>
       </div>
-    </div>
-  );
+    );
+  };
+
+  const activityCard = ({ title, titleMr, description, icon: Icon, color }: { title: string; titleMr: string; description: string; icon: any; color: string }) => {
+    const colors = getColorClasses(color);
+    return (
+      <div className="festival-card p-6 rounded-xl">
+        <div className="text-center">
+          <div className={`w-16 h-16 ${colors.bg} rounded-full mx-auto mb-4 flex items-center justify-center`}>
+            <Icon className={`${colors.text} text-2xl h-6 w-6`} />
+          </div>
+          <h3 className="text-xl font-bold text-cultural-maroon mb-2">{title}</h3>
+          <p className={`font-devanagari ${colors.text} font-semibold mb-3`}>{titleMr}</p>
+          <p className="text-muted-foreground">{description}</p>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div>
