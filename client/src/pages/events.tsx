@@ -5,24 +5,49 @@ import { Button } from "@/components/ui/button";
 export default function Events() {
   const { language } = useLanguage();
 
-  const eventCard = ({ title, titleMr, description, date, icon: Icon, color }: { title: string; titleMr: string; description: string; date: string; icon: any; color: string }) => (
-    <div className="bg-white p-8 rounded-xl shadow-lg">
-      <div className="flex items-start space-x-4">
-        <div className={`w-16 h-16 bg-${color}/10 rounded-full flex items-center justify-center flex-shrink-0`}>
-          <Icon className={`text-${color} text-2xl h-8 w-8`} />
-        </div>
-        <div className="flex-1">
-          <h3 className="text-xl font-bold text-cultural-maroon mb-2">{title}</h3>
-          <p className={`font-devanagari text-${color} font-semibold mb-3`}>{titleMr}</p>
-          <p className="text-muted-foreground mb-4">{description}</p>
-          <div className={`text-sm text-${color} font-medium`}>
-            <Calendar className="w-4 h-4 inline mr-2" />
-            {date}
+  const getColorClasses = (color: string) => {
+    const colorMap = {
+      'cultural-saffron': {
+        bg: 'bg-cultural-saffron/10',
+        text: 'text-cultural-saffron'
+      },
+      'cultural-green': {
+        bg: 'bg-cultural-green/10',
+        text: 'text-cultural-green'
+      },
+      'cultural-maroon': {
+        bg: 'bg-cultural-maroon/10',
+        text: 'text-cultural-maroon'
+      },
+      'purple-600': {
+        bg: 'bg-purple-600/10',
+        text: 'text-purple-600'
+      }
+    };
+    return colorMap[color as keyof typeof colorMap] || colorMap['cultural-saffron'];
+  };
+
+  const eventCard = ({ title, titleMr, description, date, icon: Icon, color }: { title: string; titleMr: string; description: string; date: string; icon: any; color: string }) => {
+    const colors = getColorClasses(color);
+    return (
+      <div className="bg-white p-8 rounded-xl shadow-lg">
+        <div className="flex items-start space-x-4">
+          <div className={`w-16 h-16 ${colors.bg} rounded-full flex items-center justify-center flex-shrink-0`}>
+            <Icon className={`${colors.text} text-2xl h-8 w-8`} />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-xl font-bold text-cultural-maroon mb-2">{title}</h3>
+            <p className={`font-devanagari ${colors.text} font-semibold mb-3`}>{titleMr}</p>
+            <p className="text-muted-foreground mb-4">{description}</p>
+            <div className={`text-sm ${colors.text} font-medium`}>
+              <Calendar className="w-4 h-4 inline mr-2" />
+              {date}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div>
@@ -238,16 +263,22 @@ export default function Events() {
                 <Button 
                   className="bg-cultural-saffron text-white hover:bg-cultural-saffron/90"
                   data-testid="link-google-photos"
+                  asChild
                 >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Google Photos
+                  <a href="https://photos.google.com/" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    Google Photos
+                  </a>
                 </Button>
                 <Button 
                   className="bg-cultural-green text-white hover:bg-cultural-green/90"
                   data-testid="link-google-drive"
+                  asChild
                 >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Google Drive
+                  <a href="https://drive.google.com/" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    Google Drive
+                  </a>
                 </Button>
               </div>
             </div>
