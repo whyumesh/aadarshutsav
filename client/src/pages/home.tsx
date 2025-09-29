@@ -79,8 +79,8 @@ export default function Home() {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <img 
-                    src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80" 
-                    alt="Navratri dancers in traditional attire performing Garba dance" 
+                    src="/lok_kala.jpeg" 
+                    alt="Maharashtrian folk dancers in traditional Lavani and Koli attire celebrating cultural heritage" 
                     className="rounded-xl shadow-lg w-full h-auto object-cover"
                   />
                 </div>
