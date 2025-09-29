@@ -1,6 +1,6 @@
 [build]
   # Build command for the client-side React app
-  command = "npm run build"
+  command = "npm ci && npm run build"
   
   # Directory where the built files will be located
   publish = "dist/public"
