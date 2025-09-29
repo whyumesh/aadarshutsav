@@ -16,6 +16,7 @@
   NODE_ENV = "production"
 
 # Redirect rules for SPA (Single Page Application)
+# This ensures all routes are handled by the React app
 [[redirects]]
   from = "/*"
   to = "/index.html"
