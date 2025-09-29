@@ -79,9 +79,9 @@ export default function Home() {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <img 
-                    src="https://pixabay.com/get/gb89a06d10f8807aa4e08e1b4afd01721463b9675b60bf3432879e757b277615e0e128bcfd784376ab4a1e4564cae7e8ef2ac0b40ac75262b8103f41708419409_1280.jpg" 
-                    alt="Navratri dancers in traditional attire" 
-                    className="rounded-xl shadow-lg w-full h-auto"
+                    src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80" 
+                    alt="Navratri dancers in traditional attire performing Garba dance" 
+                    className="rounded-xl shadow-lg w-full h-auto object-cover"
                   />
                 </div>
                 <div className="space-y-6">
